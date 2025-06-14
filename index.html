@@ -102,21 +102,32 @@
       }
 
       // Storage Info
-      if (navigator.storage && navigator.storage.estimate) {
-        try {
-          const estimate = await navigator.storage.estimate();
-          const usage = estimate.usage;
-          const quota = estimate.quota;
-          const percentUsed = Math.round((usage / quota) * 100);
-          storageBox.innerHTML = `
-            <p><span class="label">Storage Used:</span> ${percentUsed}%</p>
-            <p><span class="label">Remaining:</span> ${(quota - usage) / (1024*1024*1024) | 0} GB</p>
-          `;
-          if (percentUsed > 90) results.storageFull = true;
-        } catch {
-          storageBox.textContent = "Storage info not available.";
-        }
-      }
+      // Storage Info
+if (navigator.storage && navigator.storage.estimate) {
+  try {
+    const estimate = await navigator.storage.estimate();
+    const usage = estimate.usage;
+    const quota = estimate.quota;
+    const usedGB = (usage / (1024 * 1024 * 1024)).toFixed(2);
+    const quotaGB = (quota / (1024 * 1024 * 1024)).toFixed(2);
+    const remainingGB = (quota - usage) / (1024 * 1024 * 1024);
+    const percentUsed = Math.round((usage / quota) * 100);
+
+    storageBox.innerHTML = `
+      <p><span class="label">Used:</span> ${usedGB} GB</p>
+      <p><span class="label">Total Available:</span> ${quotaGB} GB</p>
+      <p><span class="label">Free:</span> ${remainingGB.toFixed(2)} GB</p>
+      <p><span class="label">Used:</span> ${percentUsed}%</p>
+    `;
+
+    if (percentUsed > 90) results.storageFull = true;
+  } catch {
+    storageBox.textContent = "Storage info not available.";
+  }
+} else {
+  storageBox.textContent = "Storage estimate not supported.";
+}
+
 
       // Network Info
       if ('connection' in navigator) {
