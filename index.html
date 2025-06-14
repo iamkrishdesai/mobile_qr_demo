@@ -1,90 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smartphone Health Check</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        padding: 2rem;
-        background: #f5f5f5;
-        color: #333;
-        max-width: 500px;
-        margin: auto;
-      }
-      h1 {
-        text-align: center;
-      }
-      .info-box {
-        background: white;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-      .label {
-        font-weight: bold;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>📱 Phone Health Check</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smartphone Health Check</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f5f5f5;
+      color: #333;
+      max-width: 500px;
+      margin: auto;
+    }
+    h1 { text-align: center; }
+    .info-box {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .label { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>📱 Phone Health Check</h1>
 
-    <div class="info-box">
-      <p>
-        <span class="label">Battery:</span>
-        <span id="battery">Checking...</span>
-      </p>
-      <p>
-        <span class="label">Charging:</span>
-        <span id="charging">Checking...</span>
-      </p>
-    </div>
+  <div class="info-box">
+    <p><span class="label">Battery:</span> <span id="battery">Checking...</span></p>
+    <p><span class="label">Charging:</span> <span id="charging">Checking...</span></p>
+  </div>
 
-    <div class="info-box">
-      <p><span class="label">Device Info:</span></p>
-      <p id="deviceInfo"></p>
-    </div>
+  <div class="info-box">
+    <p><span class="label">Device Info:</span></p>
+    <p id="deviceInfo">Loading...</p>
+  </div>
 
-    <div class="info-box">
-      <p>
-        <span class="label">Network:</span>
-        <span id="network">Checking...</span>
-      </p>
-    </div>
+  <div class="info-box">
+    <p><span class="label">Network:</span> <span id="network">Checking...</span></p>
+  </div>
 
-    <script>
-      // Battery
-      if ("getBattery" in navigator) {
-        navigator
-          .getBattery()
-          .then((battery) => {
-            document.getElementById("battery").textContent =
-              Math.round(battery.level * 100) + "%";
-            document.getElementById("charging").textContent = battery.charging
-              ? "Yes"
-              : "No";
-          })
-          .catch(() => {
-            document.getElementById("battery").textContent = "Not supported";
-            document.getElementById("charging").textContent = "Not supported";
-          });
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // Battery Info
+      if (navigator.getBattery) {
+        navigator.getBattery().then(battery => {
+          const updateBatteryInfo = () => {
+            document.getElementById('battery').textContent = Math.round(battery.level * 100) + '%';
+            document.getElementById('charging').textContent = battery.charging ? 'Yes' : 'No';
+          };
+
+          updateBatteryInfo();
+          battery.addEventListener('levelchange', updateBatteryInfo);
+          battery.addEventListener('chargingchange', updateBatteryInfo);
+        }).catch(err => {
+          document.getElementById('battery').textContent = 'Error';
+          document.getElementById('charging').textContent = 'Error';
+          console.error(err);
+        });
       } else {
-        document.getElementById("battery").textContent = "Not supported";
-        document.getElementById("charging").textContent = "Not supported";
+        document.getElementById('battery').textContent = 'Not supported';
+        document.getElementById('charging').textContent = 'Not supported';
       }
 
       // Device Info
-      document.getElementById("deviceInfo").textContent = navigator.userAgent;
+      document.getElementById('deviceInfo').textContent = navigator.userAgent || 'Unknown';
 
       // Network Info
       if (navigator.connection) {
-        const type = navigator.connection.effectiveType || "unknown";
-        document.getElementById("network").textContent = type;
+        const updateNetworkInfo = () => {
+          const type = navigator.connection.effectiveType || 'unknown';
+          document.getElementById('network').textContent = type;
+        };
+
+        updateNetworkInfo();
+        navigator.connection.addEventListener('change', updateNetworkInfo);
       } else {
-        document.getElementById("network").textContent = "Not available";
+        document.getElementById('network').textContent = 'Not available';
       }
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>
