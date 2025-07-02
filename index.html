@@ -2,903 +2,657 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Phone Health Check</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ravray Mobile Shop | Expert Mobile Repairs in Bhuj Kutch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    :root {
-      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      --gradient-warning: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-      --gradient-danger: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
-      
-      --glass-bg: rgba(255, 255, 255, 0.25);
-      --glass-border: rgba(255, 255, 255, 0.18);
-      --shadow-light: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      --shadow-heavy: 0 20px 60px 0 rgba(31, 38, 135, 0.5);
-      
-      --text-primary: #2d3748;
-      --text-secondary: #4a5568;
-      --text-light: rgba(255, 255, 255, 0.9);
-    }
-
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--gradient-primary);
-      min-height: 100vh;
-      padding: 2rem 1rem;
-      position: relative;
-      overflow-x: hidden;
+      line-height: 1.6;
+      color: #333;
+      background: #ffffff;
     }
 
-    /* Animated background elements */
-    .bg-decoration {
-      position: fixed;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .bg-circle {
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .bg-circle:nth-child(1) {
-      width: 200px;
-      height: 200px;
-      top: 10%;
-      left: -10%;
-      animation-delay: 0s;
-    }
-
-    .bg-circle:nth-child(2) {
-      width: 150px;
-      height: 150px;
-      top: 60%;
-      right: -5%;
-      animation-delay: 2s;
-    }
-
-    .bg-circle:nth-child(3) {
-      width: 100px;
-      height: 100px;
-      bottom: 20%;
-      left: 20%;
-      animation-delay: 4s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(180deg); }
-    }
-
-    .container {
-      max-width: 700px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    h1 {
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%);
+      color: white;
+      padding: 3rem 0;
       text-align: center;
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 3rem;
-      color: var(--text-light);
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      animation: slideDown 0.8s ease-out;
-    }
-
-    .phone-icon {
-      display: inline-block;
-      font-size: 3.5rem;
-      margin-right: 1rem;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: var(--shadow-light);
-      transition: all 0.3s ease;
-      animation: slideUp 0.6s ease-out;
-      animation-fill-mode: both;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-heavy);
-    }
-
-    .glass-card:nth-child(2) { animation-delay: 0.1s; }
-    .glass-card:nth-child(3) { animation-delay: 0.2s; }
-    .glass-card:nth-child(4) { animation-delay: 0.3s; }
-    .glass-card:nth-child(5) { animation-delay: 0.4s; }
-    .glass-card:nth-child(6) { animation-delay: 0.5s; }
-    .glass-card:nth-child(7) { animation-delay: 0.6s; }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--text-light);
-    }
-
-    .card-icon {
-      font-size: 2rem;
-      margin-right: 1rem;
-      padding: 0.5rem;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.8rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-light);
-    }
-
-    .info-row:last-child {
-      border-bottom: none;
-    }
-
-    .label {
-      font-weight: 500;
-      opacity: 0.9;
-    }
-
-    .value {
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .status-card {
-      text-align: center;
-      padding: 2.5rem 2rem;
-      border: none;
       position: relative;
       overflow: hidden;
     }
 
-    .status-card::before {
+    .header::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: var(--gradient-success);
-      opacity: 0.8;
-      z-index: -1;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="white" opacity="0.08"><polygon points="0,0 1000,0 1000,60 0,100"/></svg>');
+      background-size: cover;
     }
 
-    .status-card.warning::before {
-      background: var(--gradient-warning);
+    .header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
     }
 
-    .status-card.danger::before {
-      background: var(--gradient-danger);
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
 
-    .status-icon {
-      font-size: 4rem;
+    .logo {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .tagline {
+      font-size: 1.3rem;
+      opacity: 0.95;
       margin-bottom: 1rem;
-      animation: pulse 2s infinite;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-
-    .status-text {
-      font-size: 1.5rem;
+    .hero-text {
+      font-size: 1.8rem;
       font-weight: 600;
-      color: white;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 2rem;
+      color: #fef3c7;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
 
-    .issue-list {
-      text-align: left;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin: 1rem 0;
-    }
-
-    .issue-item {
-      color: white;
-      padding: 0.5rem 0;
+    /* CTA Buttons */
+    .cta-buttons {
       display: flex;
-      align-items: center;
-    }
-
-    .issue-item::before {
-      content: '⚠️';
-      margin-right: 0.8rem;
-      font-size: 1.2rem;
-    }
-
-    .trust-badges {
-      display: flex;
-      justify-content: center;
       gap: 1rem;
-      margin-bottom: 1.5rem;
+      justify-content: center;
       flex-wrap: wrap;
     }
 
-    .badge {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .credentials {
-      margin: 2rem 0;
-      text-align: left;
-    }
-
-    .cred-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.2rem;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 1rem;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-    }
-
-    .cred-icon {
-      font-size: 2rem;
-      margin-right: 1rem;
-      width: 3rem;
-      text-align: center;
-    }
-
-    .cred-text strong {
-      display: block;
-      font-size: 1.1rem;
-      color: white;
-      margin-bottom: 0.3rem;
-    }
-
-    .cred-text small {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 0.9rem;
-    }
-
-    .testimonial {
-      background: rgba(255, 255, 255, 0.15);
-      padding: 1.5rem;
-      border-radius: 15px;
-      margin: 2rem 0;
-      border-left: 4px solid #fff;
-    }
-
-    .quote {
-      font-style: italic;
-      font-size: 1.1rem;
-      color: white;
-      margin-bottom: 0.8rem;
-      line-height: 1.5;
-    }
-
-    .quote::before {
-      content: '"';
-      font-size: 2rem;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .quote::after {
-      content: '"';
-      font-size: 2rem;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .customer {
-      text-align: right;
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 600;
-    }
-
-    .action-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-
-    .phone-link.primary {
-      background: linear-gradient(45deg, #00ff87, #60efff);
-      color: #000;
-      font-weight: 700;
-      font-size: 1.3rem;
-      padding: 1.2rem 2rem;
-      box-shadow: 0 8px 30px rgba(0, 255, 135, 0.3);
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      from { box-shadow: 0 8px 30px rgba(0, 255, 135, 0.3); }
-      to { box-shadow: 0 8px 40px rgba(0, 255, 135, 0.6); }
-    }
-
-    .whatsapp-link {
-      background: #25D366;
-      color: white;
+    .btn {
       padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-align: center;
-    }
-
-    .whatsapp-link:hover {
-      background: #128C7E;
-      transform: translateY(-2px);
-    }
-
-    .guarantee {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 1rem;
-      border-radius: 10px;
-      border: 2px dashed rgba(255, 255, 255, 0.5);
-      color: white;
-      font-size: 1rem;
-      text-align: center;
-      animation: pulse-border 3s infinite;
-    }
-
-    @keyframes pulse-border {
-      0%, 100% { border-color: rgba(255, 255, 255, 0.5); }
-      50% { border-color: rgba(255, 255, 255, 0.8); }
-    }
-
-    .shop-card {
-      background: var(--gradient-secondary);
-      color: white;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    @keyframes shine {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .shop-header {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .shop-name {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #fff;
-      margin: 1rem 0;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
-
-    .shop-address {
       font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-      opacity: 0.95;
-    }
-
-    .phone-link {
-      display: inline-flex;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
+      font-weight: 600;
       text-decoration: none;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1.2rem;
+      border-radius: 8px;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .phone-link:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    .phone-link::before {
-      content: '📞';
-      margin-right: 0.8rem;
-      font-size: 1.5rem;
-    }
-
-    .loading-animation {
-      display: flex;
-      justify-content: center;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
     }
 
-    .loading-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
+    .btn-primary {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-secondary {
       background: white;
-      animation: loadingPulse 1.4s infinite ease-in-out;
+      color: #1e3a8a;
+      border: 2px solid white;
     }
 
-    .loading-dot:nth-child(1) { animation-delay: -0.32s; }
-    .loading-dot:nth-child(2) { animation-delay: -0.16s; }
-
-    @keyframes loadingPulse {
-      0%, 80%, 100% {
-        transform: scale(0.8);
-        opacity: 0.5;
-      }
-      40% {
-        transform: scale(1);
-        opacity: 1;
-      }
+    .btn-secondary:hover {
+      background: #f8fafc;
+      transform: translateY(-2px);
     }
 
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section {
+      padding: 4rem 0;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #1e40af;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(135deg, #3b82f6, #06b6d4);
+      border-radius: 2px;
+    }
+
+    /* About Section */
+    .about {
+      background: #f8fafc;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-text {
+      font-size: 1.1rem;
+      color: #4b5563;
+      line-height: 1.8;
+    }
+
+    .about-highlight {
+      background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      text-align: center;
+      border: 1px solid #e2e8f0;
+      position: relative;
       overflow: hidden;
-      margin: 1rem 0;
     }
 
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #4facfe, #00f2fe);
-      transition: width 0.3s ease;
-      border-radius: 4px;
+    .about-highlight::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #10b981, #059669);
     }
 
+    .highlight-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #10b981;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-text {
+      font-weight: 600;
+      color: #1e40af;
+    }
+
+    /* Services Section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: white;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: all 0.3s ease;
+      border-top: 4px solid transparent;
+      background-image: linear-gradient(white, white), linear-gradient(135deg, #3b82f6, #06b6d4);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      position: relative;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #3b82f6, #06b6d4);
+      border-radius: 16px 16px 0 0;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+    }
+
+    .service-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #1e3a8a;
+    }
+
+    .service-desc {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    /* Gallery Section */
+    .gallery {
+      background: #f8fafc;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .gallery-item {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    .gallery-image {
+      height: 200px;
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 4rem;
+      position: relative;
+    }
+
+    .gallery-content {
+      padding: 1.5rem;
+    }
+
+    .gallery-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1e3a8a;
+    }
+
+    .gallery-desc {
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    /* Contact Section */
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .contact-info {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 8px;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: #3b82f6;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-details h4 {
+      font-weight: 600;
+      color: #1e3a8a;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-details p, .contact-details a {
+      color: #6b7280;
+      text-decoration: none;
+    }
+
+    .contact-details a:hover {
+      color: #3b82f6;
+    }
+
+    .map-container {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .map-embed {
+      width: 100%;
+      height: 400px;
+      border: none;
+      filter: grayscale(20%);
+    }
+
+    /* Footer */
+    .footer {
+      background: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .footer p {
+      opacity: 0.9;
+    }
+
+    /* Responsive Design */
     @media (max-width: 768px) {
-      h1 {
+      .logo {
         font-size: 2.5rem;
       }
-      
-      .glass-card {
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
+
+      .hero-text {
+        font-size: 1.5rem;
       }
-      
-      .card-header {
-        font-size: 1.3rem;
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
       }
-      
-      .status-icon {
-        font-size: 3rem;
+
+      .about-content,
+      .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+    }
+
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Loading animation */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Animated background elements -->
-  <div class="bg-circle bg-decoration"></div>
-  <div class="bg-circle bg-decoration"></div>
-  <div class="bg-circle bg-decoration"></div>
-
-  <div class="container">
-    <h1><span class="phone-icon">📱</span>Phone Health Check</h1>
-
-    <div class="glass-card" id="deviceBox">
-      <div class="card-header">
-        <span class="card-icon">💻</span>
-        Device Information
-      </div>
-    </div>
-
-    <div class="glass-card" id="batteryBox">
-      <div class="card-header">
-        <span class="card-icon">🔋</span>
-        Battery Status
-      </div>
-    </div>
-
-    <div class="glass-card" id="storageBox">
-      <div class="card-header">
-        <span class="card-icon">💾</span>
-        Storage Information
-      </div>
-    </div>
-
-    <div class="glass-card" id="networkBox">
-      <div class="card-header">
-        <span class="card-icon">📡</span>
-        Network Status
-      </div>
-    </div>
-
-    <div class="glass-card status-card" id="statusBox">
-      <div class="loading-animation">
-        <div class="loading-dot"></div>
-        <div class="loading-dot"></div>
-        <div class="loading-dot"></div>
-      </div>
-      <div class="status-text">Analyzing your device...</div>
-    </div>
-
-    <div class="glass-card shop-card">
-      <div class="trust-badges">
-        <div class="badge">⭐⭐⭐⭐⭐</div>
-        <div class="badge">✅ Certified Technicians</div>
-        <div class="badge">🛡️ 6 Month Warranty</div>
-      </div>
+  <header class="header">
+    <div class="header-content fade-in">
+      <h1 class="logo">Ravray Mobile Shop</h1>
+      <p class="tagline">Expert Mobile Repair Services in Bhuj Kutch</p>
+      <h2 class="hero-text">Your Device. Our Responsibility.</h2>
       
-      <div class="shop-header">🏆 #1 Trusted Mobile Repair in Bhuj</div>
-      <div class="shop-name">Ravray Mobile Shop</div>
-      
-      <div class="credentials">
-        <div class="cred-item">
-          <span class="cred-icon">👨‍🔧</span>
-          <div class="cred-text">
-            <strong>10+ Years Experience</strong>
-            <small>Expert technicians since 2014</small>
+      <div class="cta-buttons">
+        <a href="tel:7984092641" class="btn btn-primary">
+          📞 Call Now - 7984092641
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section about" id="about">
+      <div class="container">
+        <h2 class="section-title fade-in">About Ravray Mobile Shop</h2>
+        <div class="about-content fade-in">
+          <div class="about-text">
+            <p><strong>Welcome to Ravray Mobile Shop</strong> - your trusted partner for all mobile repair needs in Bhuj, Kutch. We have been serving the community with dedication and expertise, ensuring every device gets the care it deserves.</p>
+            <br>
+            <p>Our team of skilled technicians uses only genuine parts and advanced repair techniques to restore your devices to perfect working condition. We understand how important your mobile device is to your daily life, which is why we provide fast, reliable, and affordable repair services.</p>
+            <br>
+            <p>Located conveniently at New Bus Stand, we are easily accessible and committed to providing exceptional customer service with every repair.</p>
           </div>
-        </div>
-        
-        <div class="cred-item">
-          <span class="cred-icon">📱</span>
-          <div class="cred-text">
-            <strong>15,000+ Repairs Done</strong>
-            <small>All brands - iPhone, Samsung, Xiaomi, Oppo</small>
-          </div>
-        </div>
-        
-        <div class="cred-item">
-          <span class="cred-icon">⚡</span>
-          <div class="cred-text">
-            <strong>Same Day Service</strong>
-            <small>Most repairs completed within 2 hours</small>
-          </div>
-        </div>
-        
-        <div class="cred-item">
-          <span class="cred-icon">💰</span>
-          <div class="cred-text">
-            <strong>Transparent Pricing</strong>
-            <small>No hidden charges, free diagnosis</small>
+          <div class="about-highlight">
+            <div class="highlight-number">5+</div>
+            <div class="highlight-text">Years of Experience</div>
+            <br>
+            <div class="highlight-number">1000+</div>
+            <div class="highlight-text">Happy Customers</div>
           </div>
         </div>
       </div>
-      
-      <div class="testimonial">
-        <div class="quote">"Fixed my iPhone screen in 30 minutes! Great service and fair price. Highly recommended!"</div>
-        <div class="customer">- Krish H., Bhuj</div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <h2 class="section-title fade-in">Our Expert Services</h2>
+        <div class="services-grid fade-in">
+          <div class="service-card">
+            <div class="service-icon">📱</div>
+            <h3 class="service-title">Screen Replacement</h3>
+            <p class="service-desc">Professional screen repair and replacement using high-quality parts. We handle cracked screens, touch issues, and display problems for all mobile brands.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🔋</div>
+            <h3 class="service-title">Battery Replacement</h3>
+            <p class="service-desc">Restore your device's battery life with genuine battery replacements. We provide quality batteries with warranty for extended device performance.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">💧</div>
+            <h3 class="service-title">Water Damage Repair</h3>
+            <p class="service-desc">Specialized water damage restoration services using advanced drying and cleaning techniques to recover your water-damaged devices.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">📷</div>
+            <h3 class="service-title">Camera Repair</h3>
+            <p class="service-desc">Fix camera issues including blurry photos, camera not working, or lens problems. We repair both front and rear cameras professionally.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">⚡</div>
+            <h3 class="service-title">Charging Port Repair</h3>
+            <p class="service-desc">Resolve charging problems with professional port cleaning and replacement services. Get your device charging properly again.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🛠️</div>
+            <h3 class="service-title">Software Solutions</h3>
+            <p class="service-desc">Complete software troubleshooting, virus removal, system optimization, and data recovery services for all mobile devices.</p>
+          </div>
+        </div>
       </div>
-      
-      <div class="shop-address">
-        📍 Shop No. 79, New Bus Stand<br/>
-        Bhuj, Kutchh – 370001<br/>
-        🕒 Open: 9 AM - 9 PM (Mon-Sun)
+    </section>
+
+    <section class="section gallery" id="gallery">
+      <div class="container">
+        <h2 class="section-title fade-in">Our Professional Workspace</h2>
+        <div class="gallery-grid fade-in">
+          <div class="gallery-item">
+            <div class="gallery-image">
+              🔧
+            </div>
+            <div class="gallery-content">
+              <h3 class="gallery-title">Professional Repair Station</h3>
+              <p class="gallery-desc">Equipped with advanced tools and equipment for precise mobile repairs. Our clean, organized workspace ensures quality service.</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-image">
+              👨‍🔧
+            </div>
+            <div class="gallery-content">
+              <h3 class="gallery-title">Expert Technicians</h3>
+              <p class="gallery-desc">Our skilled technicians have years of experience in mobile repair across all major brands including Samsung, iPhone, Xiaomi, and more.</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-image">
+              📋
+            </div>
+            <div class="gallery-content">
+              <h3 class="gallery-title">Quality Testing</h3>
+              <p class="gallery-desc">Every repaired device undergoes comprehensive testing to ensure optimal performance before returning to customers.</p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-image">
+              ✅
+            </div>
+            <div class="gallery-content">
+              <h3 class="gallery-title">Warranty Service</h3>
+              <p class="gallery-desc">We provide warranty on all our repair services and parts used, giving you peace of mind with every repair.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      
-      <div class="action-buttons">
-        <a href="tel:+917984092641" class="phone-link primary"> Call Now: 7984092641</a>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <h2 class="section-title fade-in">Visit Our Shop</h2>
+        <div class="contact-content fade-in">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">🏪</div>
+              <div class="contact-details">
+                <h4>Shop Location</h4>
+                <p>Ravray Mobile Shop<br>
+                Shop No 79, New Bus Stand<br>
+                Bhuj – Kutch 370001<br>
+                Gujarat, India</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div class="contact-details">
+                <h4>Call Us</h4>
+                <p><a href="tel:7984092641">+91 79840 92641</a></p>
+                <p>Open: 9:00 AM - 9:00 PM (Mon-Sun)</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🚌</div>
+              <div class="contact-details">
+                <h4>Easy to Find</h4>
+                <p>Located at New Bus Stand<br>
+                Easily accessible by public transport<br>
+                Parking available nearby</p>
+              </div>
+            </div>
+          </div>
+          <div class="map-container">
+            <iframe 
+              class="map-embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.5!2d69.6669!3d23.2420!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDE0JzMxLjIiTiA2OcKwNDAnMDEuMiJF!5e0!3m2!1sen!2sin!4v1609459200000!5m2!1sen!2sin"
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ravray Mobile Shop Location">
+            </iframe>
+          </div>
+        </div>
       </div>
-      
-      <div class="guarantee">
-        <strong>🎯 Our Guarantee:</strong> If you're not 100% satisfied, we'll make it right or your money back!
-      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Ravray Mobile Shop. All rights reserved. | Expert Mobile Repairs in Bhuj Kutch</p>
     </div>
-  </div>
+  </footer>
 
   <script>
-    async function runCheckup() {
-      const deviceBox = document.getElementById('deviceBox');
-      const batteryBox = document.getElementById('batteryBox');
-      const storageBox = document.getElementById('storageBox');
-      const networkBox = document.getElementById('networkBox');
-      const statusBox = document.getElementById('statusBox');
-
-      const results = {
-        batteryLow: false,
-        storageFull: false,
-        slowNetwork: false,
-        lowMemory: false
-      };
-
-      // Device Info
-      const ua = navigator.userAgent;
-      let deviceName = 'Unknown Device';
-      
-      // Enhanced device detection
-      if (ua.includes('iPhone') || ua.includes('iPad')) {
-        deviceName = ua.includes('iPad') ? 'iPad' : 'iPhone';
-      } else if (ua.includes('Android')) {
-        deviceName = 'Android Device';
-      } else if (ua.includes('Windows NT')) {
-        deviceName = 'Windows PC';
-      } else if (ua.includes('Macintosh') || ua.includes('Mac OS X')) {
-        deviceName = 'Mac';
-      } else if (ua.includes('Linux')) {
-        deviceName = 'Linux Device';
-      } else if (ua.includes('Chrome')) {
-        deviceName = 'Chrome Browser';
-      } else if (ua.includes('Firefox')) {
-        deviceName = 'Firefox Browser';
-      } else if (ua.includes('Safari')) {
-        deviceName = 'Safari Browser';
-      }
-      
-      // Try to get more specific info
-      const platform = navigator.platform || '';
-      if (platform.includes('iPhone')) deviceName = 'iPhone';
-      else if (platform.includes('iPad')) deviceName = 'iPad';
-      else if (platform.includes('Android')) deviceName = 'Android Device';
-      else if (platform.includes('Win')) deviceName = 'Windows PC';
-      else if (platform.includes('Mac')) deviceName = 'Mac';
-      else if (platform.includes('Linux')) deviceName = 'Linux Device';
-      const ram = navigator.deviceMemory || 'Unknown';
-      const cores = navigator.hardwareConcurrency || 'Unknown';
-      const width = screen.width;
-      const height = screen.height;
-      
-      deviceBox.innerHTML = `
-        <div class="card-header">
-          <span class="card-icon">💻</span>
-          Device Information
-        </div>
-        <div class="info-row">
-          <span class="label">Device Type</span>
-          <span class="value">${deviceName}</span>
-        </div>
-        <div class="info-row">
-          <span class="label">Memory</span>
-          <span class="value">${ram} GB</span>
-        </div>
-        <div class="info-row">
-          <span class="label">CPU Cores</span>
-          <span class="value">${cores}</span>
-        </div>
-        <div class="info-row">
-          <span class="label">Screen Resolution</span>
-          <span class="value">${width} × ${height}</span>
-        </div>
-      `;
-      if (ram && ram < 2) results.lowMemory = true;
-
-      // Battery Info
-      if ('getBattery' in navigator) {
-        try {
-          const battery = await navigator.getBattery();
-          const percent = Math.round(battery.level * 100);
-          const charging = battery.charging ? 'Yes' : 'No';
-          const chargingIcon = battery.charging ? '🔌' : '🔋';
-          
-          batteryBox.innerHTML = `
-            <div class="card-header">
-              <span class="card-icon">${chargingIcon}</span>
-              Battery Status
-            </div>
-            <div class="info-row">
-              <span class="label">Battery Level</span>
-              <span class="value">${percent}%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: ${percent}%"></div>
-            </div>
-            <div class="info-row">
-              <span class="label">Charging</span>
-              <span class="value">${charging}</span>
-            </div>
-          `;
-          if (percent < 20 && !battery.charging) results.batteryLow = true;
-        } catch {
-          batteryBox.innerHTML = `
-            <div class="card-header">
-              <span class="card-icon">🔋</span>
-              Battery Status
-            </div>
-            <div class="info-row">
-              <span class="label">Status</span>
-              <span class="value">Not Available</span>
-            </div>
-          `;
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
         }
-      } else {
-        batteryBox.innerHTML = `
-          <div class="card-header">
-            <span class="card-icon">🔋</span>
-            Battery Status
-          </div>
-          <div class="info-row">
-            <span class="label">Status</span>
-            <span class="value">Not Supported</span>
-          </div>
-        `;
-      }
+      });
+    });
 
-      // Storage Info
-      if (navigator.storage && navigator.storage.estimate) {
-        try {
-          const estimate = await navigator.storage.estimate();
-          const usage = estimate.usage;
-          const quota = estimate.quota;
-          const usedGB = (usage / (1024 * 1024 * 1024)).toFixed(2);
-          const quotaGB = (quota / (1024 * 1024 * 1024)).toFixed(2);
-          const remainingGB = ((quota - usage) / (1024 * 1024 * 1024)).toFixed(2);
-          const percentUsed = Math.round((usage / quota) * 100);
+    // Fade in animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
 
-          storageBox.innerHTML = `
-            <div class="card-header">
-              <span class="card-icon">💾</span>
-              Storage Information
-            </div>
-            <div class="info-row">
-              <span class="label">Used</span>
-              <span class="value">${usedGB} GB</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: ${percentUsed}%"></div>
-            </div>
-            <div class="info-row">
-              <span class="label">Total Quota</span>
-              <span class="value">${quotaGB} GB</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Available</span>
-              <span class="value">${remainingGB} GB</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Usage</span>
-              <span class="value">${percentUsed}%</span>
-            </div>
-          `;
-          if (percentUsed > 90) results.storageFull = true;
-        } catch {
-          storageBox.innerHTML = `
-            <div class="card-header">
-              <span class="card-icon">💾</span>
-              Storage Information
-            </div>
-            <div class="info-row">
-              <span class="label">Status</span>
-              <span class="value">Not Available</span>
-            </div>
-          `;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
         }
-      }
+      });
+    }, observerOptions);
 
-      // Network Info
-      if ('connection' in navigator) {
-        const net = navigator.connection;
-        const type = net.effectiveType || 'unknown';
-        const downlink = net.downlink || 0;
-        const typeIcon = type === '4g' ? '📶' : type === '3g' ? '📳' : '📡';
-        
-        networkBox.innerHTML = `
-          <div class="card-header">
-            <span class="card-icon">${typeIcon}</span>
-            Network Status
-          </div>
-          <div class="info-row">
-            <span class="label">Connection Type</span>
-            <span class="value">${type.toUpperCase()}</span>
-          </div>
-          <div class="info-row">
-            <span class="label">Download Speed</span>
-            <span class="value">${downlink} Mbps</span>
-          </div>
-        `;
-        if (type === '2g' || downlink < 1) results.slowNetwork = true;
-      } else {
-        networkBox.innerHTML = `
-          <div class="card-header">
-            <span class="card-icon">📡</span>
-            Network Status
-          </div>
-          <div class="info-row">
-            <span class="label">Status</span>
-            <span class="value">Not Available</span>
-          </div>
-        `;
-      }
+    // Observe all elements with fade-in class
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
 
-      // Health Status
-      const issueList = [];
-      if (results.batteryLow) issueList.push("Battery is low and not charging");
-      if (results.storageFull) issueList.push("Browser storage is nearly full");
-      if (results.slowNetwork) issueList.push("Slow network connection");
-      if (results.lowMemory) issueList.push("Low device memory (< 2GB)");
-
-      setTimeout(() => {
-        if (issueList.length === 0) {
-          statusBox.className = 'glass-card status-card';
-          statusBox.innerHTML = `
-            <div class="status-icon">✅</div>
-            <div class="status-text">Your device is healthy!</div>
-            <p style="color: white; opacity: 0.9;">All systems are running optimally</p>
-          `;
-        } else {
-          statusBox.className = 'glass-card status-card warning';
-          statusBox.innerHTML = `
-            <div class="status-icon">⚠️</div>
-            <div class="status-text">Issues Detected</div>
-            <div class="issue-list">
-              ${issueList.map(issue => `<div class="issue-item">${issue}</div>`).join('')}
-            </div>
-            <p style="color: white; font-weight: 500;">Consider visiting a technician for assistance</p>
-          `;
-        }
-
-        // Random suggestion with 10% chance
-        const shouldSuggestVisit = Math.floor(Math.random() * 10) === 0;
-        if (shouldSuggestVisit && issueList.length === 0) {
-          statusBox.className = 'glass-card status-card warning';
-          statusBox.innerHTML = `
-            <div class="status-icon">👨‍🔧</div>
-            <div class="status-text">Preventive Care Recommended</div>
-            <p style="color: white; font-weight: 500; margin-bottom: 1rem;">Your device looks good, but regular maintenance helps prevent issues!</p>
-            <p style="color: white; font-weight: 600;">Visit <strong>Ravray Mobile Shop</strong> for a professional checkup</p>
-          `;
-        }
-      }, 2000); // 2 second delay for dramatic effect
-    }
-
-    runCheckup();
+    // Phone number click tracking
+    document.querySelector('a[href^="tel:"]').addEventListener('click', function() {
+      console.log('Phone number clicked');
+    });
   </script>
 </body>
 </html>
